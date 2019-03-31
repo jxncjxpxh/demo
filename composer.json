@@ -1,4 +1,13 @@
 {
     "name": "peixiuhua/demo",
-    "require": {}
+    "require": {},
+    "autoload":{
+    	"files":["common/function.php"],
+    	"psr-4":{
+    		"core\\":"core",
+    		"app\\":"app",
+    		"lib\\":"lib",
+    		"demo\\":"demo/test"
+    	}
+    }
 }
