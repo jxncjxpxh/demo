@@ -1,2 +1,2 @@
 # demo
-it is study
+it is easy MVC
