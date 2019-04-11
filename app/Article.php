@@ -11,6 +11,10 @@ class Article {
 		$this->view = new View;
 	}
 
+	public function index() {
+	    echo 1;
+    }
+
 	public function show() {
 		$this->view->setTemplete( 'show' );
 		$this->view->setVars('title', 'sb');

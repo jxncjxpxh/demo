@@ -6,7 +6,9 @@
     	"psr-4":{
     		"core\\":"core",
     		"app\\":"app",
+    		"model\\":"model",
     		"lib\\":"lib",
+    		"config\\":"config",
     		"demo\\":"demo/test"
     	}
     }

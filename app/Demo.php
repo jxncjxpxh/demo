@@ -2,19 +2,30 @@
 
 namespace app;
 
-use demo\Test;
 use lib\db\Mysql;
 
-class Demo {
-	public $dbconfig = [];
+class Demo extends Base {
 
 	public function __construct() {
-		$this->dbconfig = include ROOT_PATH . '/config/mysql.php';
+
 	}
 	function index() {
 
-		$p = new Mysql($this->dbconfig);
-		$s = $p->name('config')->query('*','id>1');
+		$p = new Mysql();
+		$s = $p->table('dx_users')->select();
 		dd($s);
 	}
+
+	function info() {
+	    $p = new \model\Users;
+	    dump($p->getInfo());
+    }
+
+    function redis() {
+	    $p = new \lib\cache\Redis();
+	    if(!$p->get('sb')){
+	        $p->set('sb',['a'=>2,'d'=>'主'],10);
+        }
+	    dump($p->get('sb',true));
+    }
 }

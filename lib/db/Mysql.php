@@ -7,7 +7,8 @@ class Mysql {
 	private $prefix;
 	protected $tableName;
 
-	public function __construct($config) {
+	public function __construct() {
+        $config = include ROOT_PATH . '/config/Mysql.php';
 		if( $this->conn == null ) {
 			try{
 				$dns = $config['dbtype'] . ":host=" . $config['host'] . ";dbname=" . $config['dbname'];
@@ -23,7 +24,7 @@ class Mysql {
 		}
 	}
 
-	public static function table($tableName) {
+	public function table($tableName) {
 		$this->tableName = $tableName;
 		return $this;
 	}
@@ -33,33 +34,121 @@ class Mysql {
 		return $this;
 	}
 
-	public function select($where) {
-
+	public function select($fields = '*', $where = '1=1') {
+        $sql = 'SELECT ' . $fields . ' FROM ' .$this->tableName. ' WHERE '. $where;
+        return $this->queryAll($sql);
 	}
 
-	public function update() {
+	public function findOne($fields = '*', $where = '1=1') {
+        $sql = 'SELECT ' . $fields . ' FROM ' .$this->tableName. ' WHERE '. $where . ' LIMIT 0,1';
+        $data = $this->queryOne($sql);
+        if($data) {
+            return $data;
+        }
+        return false;
+    }
 
+	public function update($data, $where = '1=1') {
+	    if(!is_string($where)) {
+	        die('非法操作');
+        }
+
+        $updateData = [];
+
+        if(is_string($data)) {
+            $updateString = $data;
+        } else {
+            foreach ($data as $k => $v) {
+                if(is_int($v)) {
+                    $updateData[] = "`$k`=".$v;
+                } else {
+                    $updateData[] = "`$k`='".$v."'";
+                }
+            }
+            $updateString = implode(',', $updateData);
+        }
+
+        $sql = 'UPDATE ' . $this->tableName . ' SET ' . $updateString . ' WHERE ' . $where;
+
+        return $this->exec($sql);
 	}
 
-	public function insert() {
-
+	public function insert($data,$isId = false) {
+        if(!is_array($data)) {
+            die('非法操作');
+        } else {
+            $keys = [];
+            $vals = [];
+            foreach ($data as $k => $v) {
+                $keys[] = $k;
+                if(is_int($v)){
+                    $vals[] = $v;
+                }else {
+                    $vals[] = "'". $v ."'";
+                }
+            }
+            $key_string = implode(',', $keys);
+            $val_string = implode(',', $vals);
+            $sql = 'INSERT INTO ' . $this->tableName . '(' . $key_string . ')' . ' VALUES ' . '(' . $val_string . ')';
+            if($isId) {
+                $this->exec($sql);
+                return $this->conn->lastInsertId();
+            } else {
+                return $this->exec($sql);
+            }
+        }
 	}
 
-	public function delete() {
-
+	public function delete($where) {
+        if(!is_string($where)) {
+            die('非法操作数据');
+        } else {
+            $sql = 'DELETE FROM ' . $this->tableName . ' WHERE ' . $where;
+            return $this->exec($sql);
+        }
 	}
 
-	public function exec() {
+	/**
+	 * 执行SQL
+     * @param string $sql
+     * return mixd
+	 */
+	public function exec($sql = '') {
+	    if(!$sql) {
+	        return null;
+        }
+
+        return $this->conn->exec($sql);
 
 	}
-
-	public function query($fields, $where) {
-		$sql = 'SELECT ' . $fields . ' FROM ' .$this->tableName. ' WHERE '. $where;
+	/**
+	 * 原生态sql查询
+     * @param string $sql
+     * return mixd
+	 */
+	public function queryAll($sql='') {
+        if(!$sql) {
+            return null;
+        }
 		$obj = $this->conn->query($sql);
 		if(is_object($obj)) {
 			return $obj->fetchAll(\PDO::FETCH_ASSOC);
 		} 
 		return false;
 	}
-
+    /**
+     * 原生态sql查询
+     * @param string $sql
+     * return mixd
+     */
+    public function queryOne($sql='') {
+        if(!$sql) {
+            return null;
+        }
+        $obj = $this->conn->query($sql);
+        if(is_object($obj)) {
+            return $obj->fetch(\PDO::FETCH_ASSOC);
+        }
+        return false;
+    }
 }

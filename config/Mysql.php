@@ -6,9 +6,9 @@
 return [
 	'dbtype'	=>	'mysql',
 	'host'	=>	'127.0.0.1',	
-	'dbname'	=>	'smallapi_db',	
+	'dbname'	=>	'demo',
 	'user'	=>	'root',	
 	'pwd'	=>	'123456',
 	'charset'	=>	'utf8',
-	'prefix'	=>	'small_',
+	'prefix'	=>	'dx_',
 ];
