@@ -19,8 +19,10 @@ class Mysql {
 				$this->conn = new \PDO($dns, $config['user'], $config['pwd'], $options);
 				$this->prefix = $config['prefix'];
 			}catch(\PDOException $e) {
-				die('Error:'. $e->getMessage());
-			}
+				die('Error:MYSQL connect fail =='. $e->getMessage());
+			}catch (\Error $e) {
+			    die('PDO extension not exists ==' . $e->getMessage());
+            }
 		}
 	}
 

@@ -16,8 +16,10 @@ class Redis {
                     $this->redis->auth($config['password']);
                 }
                 $this->redis->select(1); // 选择redis数据库
+            } catch (\RedisException $e) {
+                die('redis connect fail=='.$e->getMessage());
             } catch (\Error $e) {
-                die('mysql fail');
+                die('redis extension not exists==' . $e->getMessage() );
             }
 
             return $this->redis;
