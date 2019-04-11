@@ -2,7 +2,10 @@
 
 namespace lib\db;
 
+use lib\traits\Singleton;
+
 class Mysql {
+    use Singleton;
 	protected $conn = null;
 	private $prefix;
 	protected $tableName;

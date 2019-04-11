@@ -9,6 +9,11 @@ class Demo extends Base {
 	public function __construct() {
 
 	}
+
+	function sis() {
+        $s = Mysql::getInstance()->table('dx_users')->select();
+        dump($s);
+    }
 	function index() {
 
 		$p = new Mysql();
