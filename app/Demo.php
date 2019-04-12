@@ -7,8 +7,9 @@ use lib\db\Mysql;
 
 class Demo extends Base {
 
-	public function __construct() {
-
+	public function initialize() {
+        parent::initialize();
+//        echo 1;
 	}
 
 	function sis() {
@@ -34,4 +35,10 @@ class Demo extends Base {
         }
 	    dump($p->get('sb',true));
     }
+
+    function code() {
+//        dump($this->response->sendConent('aa','html'));
+        dump($this->request->param());
+    }
+
 }

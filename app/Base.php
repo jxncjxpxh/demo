@@ -8,9 +8,14 @@
 
 namespace app;
 
+use lib\Controller;
+use lib\aes\Rc4;
 
-class Base
+class Base extends Controller
 {
-    public function __construct() {
+    public $getData;
+    public function initialize() {
+//        dump(Rc4::decode($this->request->param('pm')));exit;
+        $this->getData = Rc4::decode($this->request->param('pm');
     }
 }

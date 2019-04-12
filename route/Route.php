@@ -16,5 +16,6 @@ namespace route;
 class Route {
     public static $config = [
       'abc'=>['index'],
+      'abefg'=>['demo','POST'],
     ];
 }

@@ -40,7 +40,7 @@ class Start {
             return $routeArr[$controller];
         }
 
-        foreach (Route::$config as $p) {
+        foreach ($routeArr as $p) {
             if(in_array($controller, $p)) {
                 show404();
             }
