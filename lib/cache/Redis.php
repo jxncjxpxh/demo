@@ -2,11 +2,15 @@
 
 namespace lib\cache;
 
+use lib\Config;
+use lib\traits\Singleton;
+
 class Redis {
+    use Singleton;
     public $redis = null;
 
 	public function __construct() {
-        $config = include ROOT_PATH . '/config/Redis.php';
+        $config = Config::get('redis');
 
         if($this->redis == null) {
             try {

@@ -9,8 +9,18 @@
 
 namespace lib;
 
-
 class Config
 {
+    public static function get($name) {
+        $filePaht = ROOT_PATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $name . '.php';
+
+        if($name == '' || !is_file($filePaht)) {
+            show404();
+        }
+
+        $config = include $filePaht;
+
+        return $config;
+    }
 
 }

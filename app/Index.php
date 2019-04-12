@@ -10,4 +10,8 @@ class Index {
 	function info() {
 		echo 'this a info';
 	}
+	function test() {
+	    $data = \lib\Config::get('redis');
+	    dd($data);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace app;
 
+use lib\cache\Redis;
 use lib\db\Mysql;
 
 class Demo extends Base {
@@ -27,7 +28,7 @@ class Demo extends Base {
     }
 
     function redis() {
-	    $p = new \lib\cache\Redis();
+	    $p = Redis::getInstance();
 	    if(!$p->get('sb')){
 	        $p->set('sb',['a'=>2,'d'=>'主'],10);
         }

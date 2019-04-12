@@ -3,6 +3,7 @@
 namespace lib\db;
 
 use lib\traits\Singleton;
+use lib\Config;
 
 class Mysql {
     use Singleton;
@@ -11,7 +12,7 @@ class Mysql {
 	protected $tableName;
 
 	public function __construct() {
-        $config = include ROOT_PATH . '/config/Mysql.php';
+        $config = Config::get('mysql');
 		if( $this->conn == null ) {
 			try{
 				$dns = $config['dbtype'] . ":host=" . $config['host'] . ";dbname=" . $config['dbname'];
