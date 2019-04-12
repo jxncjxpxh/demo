@@ -18,9 +18,9 @@ class Start {
         if (!empty($_GET['s'])) {
             $urlInfoArr = explode('/', $_GET['s']);
             $controller = $urlInfoArr[0];
-            $controllerName = Route::$config[$controller][0] ?? $controller;
-
-            $requestType = Route::$config[$controller][1] ?? 'GET';
+            $info = self::routerMapper($controller);
+            $controllerName = $info[0];
+            $requestType = $info[1] ?? 'GET';
             $_SERVER['REQUEST_METHOD'] === $requestType ?: show404();
             $className = '\app\\' . ucfirst($controllerName);
             $action = $urlInfoArr[1] ?? 'index';
@@ -32,6 +32,22 @@ class Start {
             show404();
         }
 	}
+
+	private static function routerMapper(string $controller):array {
+	    $routeArr = Route::$config;
+
+        if(array_key_exists($controller, $routeArr)) {
+            return $routeArr[$controller];
+        }
+
+        foreach (Route::$config as $p) {
+            if(in_array($controller, $p)) {
+                show404();
+            }
+        }
+
+        return (array) $controller;
+    }
 
 
 }
