@@ -16,7 +16,7 @@ class Start {
         $action = 'index';
 
         if (!empty($_GET['s'])) {
-            $urlInfoArr = explode('/', $_GET['s']);
+            $urlInfoArr = explode('/', strip_tags($_GET['s']));
             $controller = $urlInfoArr[0];
             $info = self::routerMapper($controller);
             $controllerName = $info[0];
