@@ -2,14 +2,14 @@
     "name": "peixiuhua/demo",
     "require": {},
     "autoload":{
-    	"files":["common/function.php"],
+    	"files":["common/function.php","lib/helper.php"],
     	"psr-4":{
     		"core\\":"core",
     		"app\\":"app",
     		"model\\":"model",
     		"lib\\":"lib",
-    		"config\\":"config",
-    		"demo\\":"demo/test"
+    		"demo\\":"demo/test",
+    		"route\\":"route"
     	}
     }
 }

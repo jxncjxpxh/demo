@@ -11,7 +11,7 @@
  * 注意默认访问url是get方式，如有限制严格按照路由方式请求否则404
  */
 
-namespace config;
+namespace route;
 
 class Route {
     public static $config = [

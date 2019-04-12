@@ -3,7 +3,7 @@
  * 初始化核心类库
  */
 namespace core;
-use config\Route;
+use route\Route;
 
 class Start {
 	public static function run() {
