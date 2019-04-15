@@ -3,10 +3,13 @@
  * 初始化核心类库
  */
 namespace core;
+
 use route\Route;
+use lib\Hook;
 
 class Start {
 	public static function run() {
+	    self::import(); // 注册标签位
 		self::parseUrl();
 	}
 
@@ -27,6 +30,7 @@ class Start {
         }
 
         try {
+            Hook::listen('app_init');
             (new $className)->$action();
         } catch (\Error $e) {
             show404();
@@ -47,6 +51,16 @@ class Start {
         }
 
         return (array) $controller;
+    }
+
+    private static function import() {
+        // 加载行为扩展文件
+        if (is_file(ROOT_PATH . '/config/tags.php')) {
+            $tags = include ROOT_PATH . '/config/tags.php';
+            if (is_array($tags)) {
+                Hook::import($tags);
+            }
+        }
     }
 
 

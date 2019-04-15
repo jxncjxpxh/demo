@@ -9,7 +9,8 @@
     		"model\\":"model",
     		"lib\\":"lib",
     		"demo\\":"demo/test",
-    		"route\\":"route"
+    		"route\\":"route",
+    		"behavior\\":"behavior"
     	}
     }
 }
