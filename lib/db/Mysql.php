@@ -125,7 +125,6 @@ class Mysql {
         }
 
         $r = $this->conn->exec($sql);
-	    $this->conn = null;
 	    return $r;
 	}
 	/**
@@ -140,10 +139,8 @@ class Mysql {
 		$obj = $this->conn->query($sql);
 		if(is_object($obj)) {
 			$r = $obj->fetchAll(\PDO::FETCH_ASSOC);
-			$this->conn = null;
 			return $r;
 		}
-		$this->conn = null;
 		return false;
 	}
     /**
@@ -158,11 +155,13 @@ class Mysql {
         $obj = $this->conn->query($sql);
         if(is_object($obj)) {
             $r = $obj->fetch(\PDO::FETCH_ASSOC);
-            $this->conn = null;
             return $r;
         }
-        $this->conn = null;
         return false;
+    }
+
+    public function clear() {
+        $this->conn = null;
     }
 
     public function runSql($sql = '') {
