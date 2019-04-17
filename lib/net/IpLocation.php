@@ -40,7 +40,7 @@ class IpLocation
      */
     public function __construct()
     {
-        $filename = ROOT_PATH . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'qqwry20190220.dat';
+        $filename = ROOT_PATH . DIRECTORY_SEPARATOR . 'resource' . DIRECTORY_SEPARATOR . 'area' .DIRECTORY_SEPARATOR. 'qqwry20190220.dat';
         $this->fp = 0;
         if (($this->fp = fopen($filename, 'rb')) !== false) {
             $this->firstip = $this->getlong();
@@ -103,6 +103,10 @@ class IpLocation
             // 字符串按照C格式保存，以\0结束
             $data .= $char; // 将读取的字符连接到给定字符串之后
             $char = fread($this->fp, 1);
+        }
+
+        if($data) {
+            $data = mb_convert_encoding($data, 'UTF-8','GBK');
         }
         return $data;
     }

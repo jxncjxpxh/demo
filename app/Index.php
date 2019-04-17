@@ -17,7 +17,7 @@ class Index {
     function getCity() {
 	    echo 1;
 	    $p = new \lib\net\IpLocation();
-	    $s = $p->getlocation('117.30.209.106');
+	    $s = $p->getlocation();
 	    dump($s);
     }
 }
