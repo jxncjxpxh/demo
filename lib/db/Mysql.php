@@ -124,8 +124,9 @@ class Mysql {
 	        return null;
         }
 
-        return $this->conn->exec($sql);
-
+        $r = $this->conn->exec($sql);
+	    $this->conn = null;
+	    return $r;
 	}
 	/**
 	 * 原生态sql查询
@@ -138,8 +139,11 @@ class Mysql {
         }
 		$obj = $this->conn->query($sql);
 		if(is_object($obj)) {
-			return $obj->fetchAll(\PDO::FETCH_ASSOC);
-		} 
+			$r = $obj->fetchAll(\PDO::FETCH_ASSOC);
+			$this->conn = null;
+			return $r;
+		}
+		$this->conn = null;
 		return false;
 	}
     /**
@@ -153,8 +157,21 @@ class Mysql {
         }
         $obj = $this->conn->query($sql);
         if(is_object($obj)) {
-            return $obj->fetch(\PDO::FETCH_ASSOC);
+            $r = $obj->fetch(\PDO::FETCH_ASSOC);
+            $this->conn = null;
+            return $r;
         }
+        $this->conn = null;
         return false;
+    }
+
+    public function runSql($sql = '') {
+        $query = $this->conn->query($sql);
+        $this->conn = null;
+
+        if(!$query) {
+            return false;
+        }
+        return true;
     }
 }
