@@ -57,4 +57,14 @@ controller 对应根目录下app目录下的控制器
 action 对应根目录下app目录下的控制器方法
 
 默认控制器为Index 方法为index
+
+**路由配置**
+/route/Route.php
+class Route {
+    public static $config = [
+      'abc'=>['index'],
+      'abefg'=>['demo','POST'],
+    ];
+}
+$config 静态数组变量健名是访问规则健值里面的数组第一个元素是控制器，第二元素是请求的方法（默认是get）
        
