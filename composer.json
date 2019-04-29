@@ -1,5 +1,5 @@
 {
-    "name": "peixiuhua/demo",
+    "name": "peixiuhua/easyapi",
     "require": {},
     "autoload":{
     	"files":["common/function.php","lib/helper.php"],
