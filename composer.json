@@ -1,5 +1,20 @@
 {
     "name": "peixiuhua/easyapi",
+	"description": "easy mvc api framework",
+	"version": "1.0.0-dev",
+	"authors": [
+		{
+			"name": "peixiuhua",
+			"email": "jxncjxpxh@163.com"
+		}
+	],
+	"type": "project",
+	"keywords": [
+		"peixiuhua",
+		"easyapi",
+	],
+	"homepage": "http://www.peixiuhua.com",
+	"license": "Apache-2.0",
     "require": {},
     "autoload":{
     	"files":["common/function.php","lib/helper.php"],
