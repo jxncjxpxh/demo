@@ -3,7 +3,8 @@
 namespace lib;
 
 class Mode {
-	function demo{
+
+	function demo() {
 		echo 11;
 	}
 }
