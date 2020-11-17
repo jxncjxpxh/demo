@@ -16,6 +16,6 @@ class Base extends Controller
     public $getData;
     public function initialize() {
 //        dump(Rc4::decode($this->request->param('pm')));exit;
-        $this->getData = Rc4::decode($this->request->param('pm');
+        $this->getData = Rc4::decode($this->request->param('pm'));
     }
 }

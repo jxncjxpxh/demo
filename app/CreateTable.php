@@ -48,7 +48,13 @@ class CreateTable
             {
                 $sql = file_get_contents($dir.'/'.$file);
                 $sql = str_replace('--tablenamedate--', $tablename_tail, $sql);
+                //加入表分区按日分区
+                $sql .= " PARTITION BY RANGE  COLUMNS(adddate)";
+                $sql .= "(";
+                $sql .= implode(',', $this->get_partition_arr($start_date, $end_date));
+                $sql .= ");";
                 $r = $this->db->runSql($sql);
+
                 if($r) {
                     echo $file.' success<br>';
                 } else {
@@ -56,6 +62,8 @@ class CreateTable
                 }
             }
         }
+
+        closedir($filelist);
     }
 
     function get_partition_arr($start_date, $end_date)
