@@ -73,7 +73,7 @@ class Response
     /**
      * 发送HTTP状态
      * @param integer $code 状态码
-     * @return void
+     * @return object
      */
     function sendHttpStatus($code) {
         if(isset(self::$status[$code])) {
@@ -87,7 +87,7 @@ class Response
     /**
      * 发送数据至客户端
      * @access public
-     * @param string $data
+     * @param string|array $data
      * @param string $contentType
      * @return string
      */

@@ -2,13 +2,17 @@
 
 namespace app;
 
-class Index {
+use lib\Controller;
+
+class Index extends Controller {
 	function index() {
 		dd('abc');
 		echo 'this is Index/index';
 	}
 	function info() {
 		echo 'this a info';
+        $this->response->sendConent(['age'=>20,'name'=>'lqbz']);
+
 	}
 	function test() {
 	    $data = \lib\Config::get('redis');
