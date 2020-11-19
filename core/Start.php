@@ -15,12 +15,12 @@ class Start {
 
 	private static function parseUrl()
     {
-        $className = '\app\Index';
-        $action = 'index';
+//        $className = '\app\Index';
+//        $action = 'index';
 
         if (!empty($_GET['s'])) {
             $urlInfoArr = explode('/', strip_tags($_GET['s']));
-            $controller = $urlInfoArr[0];
+            $controller = strtolower( $urlInfoArr[0] );
             $info = self::routerMapper($controller);
             $controllerName = $info[0];
             $requestType = $info[1] ?? 'GET';
@@ -29,11 +29,17 @@ class Start {
             $action = $urlInfoArr[1] ?? 'index';
         }
 
+        if(!isset($className)) {
+            show404();
+        }
+
         try {
             Hook::listen('app_init');
             (new $className)->$action();
+            Hook::listen('app_end');
         } catch (\Error $e) {
-            show404();
+//            show404();
+            die('Eroor:' . $e->getMessage());
         }
 	}
 

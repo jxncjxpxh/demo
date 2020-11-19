@@ -9,4 +9,5 @@
 
 return [
     'app_init'  =>  ['\behavior\Test'],
+    'app_end'   =>  ['\behavior\Appover'],
 ];
